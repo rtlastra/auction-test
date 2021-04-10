@@ -66,3 +66,5 @@ gem "jwt", "~> 2.2"
 gem "bcrypt-ruby", "~> 3.1"
 
 gem 'delayed_job_active_record'
+
+gem 'rack-cors'
