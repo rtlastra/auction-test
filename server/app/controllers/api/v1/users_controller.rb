@@ -3,13 +3,13 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   before_action :authorize_request, except: :create
 
   def index
-    data = {
-      users: User.all
-    }
-    render_json_response(data)
+    authorize User
+    users = User.all
+    render_json_response(users)
   end
 
   def show
+    authorize User
     data = {
       username: @user.username,
       biddings: @user.historic_user_biddings
@@ -20,32 +20,27 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      data = {
-        message: 'Usuario creado exitosamente'
-      }
-      render_json_response(data)
+      render_json_response(@user)
     else
       render_json_api_general_error(@user.errors.full_messages, :unprocessable_entity)
     end
   end
 
   def update
+    authorize User
     if @user.update(user_params)
-      data = {
-        message: 'Usuario actualizado exitosamente'
-      }
-      render_json_response(data)
+      message = 'Usuario actualizado exitosamente'
+      render_json_response(message)
     else
       render_json_api_general_error(@user.errors.full_messages, :unprocessable_entity)
     end
   end
 
   def destroy
+    authorize User
     @user.destroy
-    data = {
-      message: 'Usuario eliminado exitosamente'
-    }
-    render_json_response(data)
+    message = 'Usuario eliminado exitosamente'
+    render_json_response(message)
   end
 
   private
@@ -54,6 +49,6 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     end
 
     def user_params
-      params.permit(:name, :last_name, :email, :password, :role_id, :username)
+      params.permit(:name, :last_name, :email, :password)
     end
 end
