@@ -28,7 +28,7 @@ En la carpeta server ejecutar los siguientes comandos:
 ```
 
 ## Frontend
-En la carpeta del cliente ejecutar el siguiente comando:
+En la carpeta client/auction-test ejecutar el siguiente comando:
 ```
   npm start
 ```
