@@ -1,6 +1,6 @@
 class Api::V1::SessionsController < Api::V1::ApplicationController
   def create
-    user = User.find_by_username(params[:username])
+    user = User.find_by_email(params[:email])
     if ((user&.authenticate(params[:password]) && (can_login?(user))))
       token = JsonWebToken.encode(user_id: user.id)
       time = Time.now + 24.hours.to_i
@@ -8,6 +8,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
         token: token,
         exp: time.strftime("%m-%d-%Y %H:%M"),
         username: user.username,
+        user_id: user.id,
         role: user.role
       }
       render_json_response(data)
