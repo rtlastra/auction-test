@@ -3,10 +3,10 @@ class Bidding < ApplicationRecord
   validates :initial_date, presence: true
   validates :final_date, presence: true
   validates :starting_price, presence: true
-
+  validates :name, presence: true
+  validates :description, presence: true
   #Associations
   belongs_to :user, required: false
-  belongs_to :article, required: true
 
   enum status: [:registered, :finished]
 
