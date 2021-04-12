@@ -70,3 +70,5 @@ gem 'delayed_job_active_record'
 gem 'rack-cors'
 
 gem 'pundit'
+
+gem 'railties'
